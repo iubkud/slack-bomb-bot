@@ -22,6 +22,7 @@ module BombBot
   RTClient = Slack::RealTime::Client.new
   WebClient = Slack::Web::Client.new(user_agent: 'Slack Ruby Client/1.0')
   Command = /^bomb/
+
   RTClient.on :hello do
     puts 'Successfully connected.'
   end

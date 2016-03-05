@@ -1,6 +1,6 @@
 module BombBot
   class Leaderboard
-    attr_reader :channel, :users, :ordered_vote_count
+    attr_reader :channel, :ordered_vote_count
 
     def initialize(data)
       @channel = data.channel

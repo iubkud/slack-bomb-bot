@@ -1,6 +1,6 @@
 module BombBot
   class Joke
-    attr_reader :data, :user_id, :joke
+    attr_reader :data, :user_id
 
     def initialize(data, user_id)
       @data = data
@@ -12,7 +12,7 @@ module BombBot
     end
 
     def user
-      User.find(user_id)
+      @user = User.find(user_id)
     end
 
     def joke
@@ -23,6 +23,8 @@ module BombBot
       send_query
       message_channel
     end
+
+    private
 
     def send_query
       Conn.prepare('insert_joke', 'insert into jokes (username, joke, date) values ($1, $2, $3)')
