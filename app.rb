@@ -5,7 +5,10 @@ require 'picky'
 
 Dotenv.load
 
-@conn = PGconn.open(:dbname => 'bombboard')
+@conn = PGconn.open(:dbname => ENV['DB_NAME'],
+										:host => ENV['DB_HOST'],
+										:user => ENV['DB_USER'],
+										:password => ENV['DB_PASSWORD'])
 
 Slack.configure do |config|
   config.token = ENV['SLACK_API_KEY']
