@@ -43,12 +43,8 @@ end
 
 def show_leaderboard(data)
 	all_users = Array.new
-
-	# this can be made faster by sorting through hash
 	@client.users.each do |key, value|
-  	if(!value.deleted)
-  		all_users.push(value.name)
-  	end
+  	all_users = @client.users.values.reject(&:deleted).map(&:name)
   end
 
   vote_totals = Hash.new
