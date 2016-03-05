@@ -5,10 +5,10 @@ require 'picky'
 
 Dotenv.load
 
-@conn = PGconn.open(:dbname => ENV['DB_NAME'],
-										:host => ENV['DB_HOST'],
-										:user => ENV['DB_USER'],
-										:password => ENV['DB_PASSWORD'])
+@conn = PGconn.open(dbname: ENV['DB_NAME'],
+										host: ENV['DB_HOST'],
+										user: ENV['DB_USER'],
+										password: ENV['DB_PASSWORD'])
 
 Slack.configure do |config|
   config.token = ENV['SLACK_API_KEY']
@@ -29,7 +29,7 @@ end
 end
 
 def check_msg(data)
-	msg_array = data['text'].split(" ")
+	msg_array = data['text'].split(' ')
 	check_quote = msg_array[2].to_s
 	user_id = msg_array[1].to_s
 
@@ -50,7 +50,7 @@ def show_leaderboard(data)
   	all_users = @client.users.values.reject(&:deleted).map(&:name)
   end
 
-  vote_totals = Hash.new
+  vote_totals = {}
   all_users.each do |u|
   	# look up count
   	count = @conn.exec("SELECT COUNT(*) FROM votes WHERE votefor = '#{u}'")
@@ -58,7 +58,7 @@ def show_leaderboard(data)
   	vote_totals[u] = count.getvalue(0,0).to_i
   end
 
-  ordered_vote_count = vote_totals.sort_by{|k,v| v}.reverse.to_h
+  ordered_vote_count = vote_totals.sort_by{ |k,v| v }.reverse.to_h
 
   msg_to_send = "bomboard leaderboard\n"
   ordered_vote_count.each do |user, votes|
@@ -117,7 +117,7 @@ end
 # format date YYYY-MM-DD
 def get_formatted_date
 	time = Time.new
-	date = time.strftime("%Y-%m-%d")
+	date = time.strftime('%Y-%m-%d')
 	return date
 end
 
