@@ -3,7 +3,6 @@ require 'dotenv'
 require 'pg'
 require 'picky'
 
-require_relative 'lib/app'
 require_relative 'lib/help'
 require_relative 'lib/joke'
 require_relative 'lib/leaderboard'
@@ -32,6 +31,10 @@ module BombBot
       Parser.run(data)
     end
   end
+
+  def self.run!
+    RTClient.start!
+  end
 end
 
-BombBot::App.run
+BombBot.run!
